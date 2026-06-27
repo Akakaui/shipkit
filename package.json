@@ -1,0 +1,49 @@
+{
+  "name": "@akakaui/create-code",
+  "version": "1.0.0",
+  "description": "AI Development Operating System - scaffolding for web, mobile, and extension projects",
+  "type": "module",
+  "main": "lib/index.js",
+  "bin": {
+    "create-code": "bin/create-code.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "templates",
+    "GUIDE.md",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test lib/*.test.js"
+  },
+  "keywords": [
+    "ai",
+    "development",
+    "scaffolding",
+    "web",
+    "mobile",
+    "extension",
+    "opencode",
+    "claude-code"
+  ],
+  "author": "Akakaui",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Akakaui/create-code.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Akakaui/create-code/issues"
+  },
+  "homepage": "https://github.com/Akakaui/create-code#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "inquirer": "^9.2.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.0"
+  }
+}

@@ -1,0 +1,20 @@
+# Build output
+dist/
+build/
+*.js.map
+
+# Test coverage
+coverage/
+
+# Environment files
+.env
+.env.local
+
+# Dependencies (for source repos, not needed in npm package)
+node_modules/
+
+# Misc
+.DS_Store
+*.log
+.vscode/
+.idea/
