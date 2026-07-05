@@ -1,0 +1,20 @@
+{
+  "name": "fun-tool",
+  "description": "Side project, experiment, or recreational tool — minimal hardening",
+  "detection": {
+    "keywords": ["hobby", "fun", "experiment", "side-project", "demo", "playground"],
+    "patterns": []
+  },
+  "skills": {
+    "all": []
+  },
+  "recommendations": {
+    "all": [
+      "Nice work! Consider if you want to go further:",
+      "- Add basic error handling",
+      "- Add a README with setup instructions",
+      "- Consider if you want to deploy it",
+      "- If this evolves, run the full production-hardening pipeline"
+    ]
+  }
+}

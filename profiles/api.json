@@ -1,0 +1,40 @@
+{
+  "name": "api",
+  "description": "Public or private API service",
+  "detection": {
+    "keywords": ["api", "rest", "graphql", "endpoint", "express", "fastify", "django", "flask", "router"],
+    "patterns": ["*/routes/*", "*/api/*", "*/controllers/*"]
+  },
+  "skills": {
+    "low": ["infra-networking", "resilience-patterns", "db-scale", "prod-ops"],
+    "medium": ["infra-networking", "resilience-patterns", "db-scale", "prod-ops", "security-hardening"],
+    "high": ["production-hardening", "infra-networking", "container-orch", "db-scale", "resilience-patterns", "security-hardening", "prod-ops"],
+    "enterprise": ["production-hardening", "infra-networking", "container-orch", "db-scale", "resilience-patterns", "security-hardening", "prod-ops"]
+  },
+  "recommendations": {
+    "low": [
+      "Set up API key authentication",
+      "Add rate limiting",
+      "Configure CORS properly",
+      "Add OpenAPI documentation"
+    ],
+    "medium": [
+      "Add connection pooling for database",
+      "Set up monitoring and alerting",
+      "Implement response caching",
+      "Add request validation middleware"
+    ],
+    "high": [
+      "Implement circuit breakers",
+      "Set up read replicas",
+      "Add comprehensive logging pipeline",
+      "Configure auto-scaling"
+    ],
+    "enterprise": [
+      "Multi-region active-active deployment",
+      "Advanced analytics and usage tracking",
+      "API versioning and deprecation strategy",
+      "SLA monitoring with SLO reporting"
+    ]
+  }
+}

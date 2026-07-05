@@ -35,7 +35,7 @@ The primary agent `@code` orchestrates the system. When you make a request, it r
 
 \`\`\`bash
 # Create a new project
-npx @akakaui/create-code@latest my-saas-app
+npx @akakaui/shipkit@latest my-saas-app
 
 # Navigate into it
 cd my-saas-app
@@ -403,9 +403,9 @@ Each project can have:
 - Don't hand off incomplete projects
 
 ## Support
+- Issues: https://github.com/Akakaui/shipkit/issues
 
-- Issues: https://github.com/Akakaui/create-code/issues
-- Docs: https://github.com/Akakaui/create-code#readme
+- Docs: https://github.com/Akakaui/shipkit#readme
 - Examples: See \`templates/\` directory
 
 ## License

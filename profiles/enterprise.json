@@ -1,0 +1,25 @@
+{
+  "name": "enterprise",
+  "description": "Enterprise-grade deployment — highest hardening level",
+  "detection": {
+    "keywords": ["enterprise", "ssr", "sso", "saml", "soc2", "hipaa", "gxp", "compliance", "audit"],
+    "patterns": []
+  },
+  "skills": {
+    "all": ["production-hardening", "infra-networking", "container-orch", "db-scale", "resilience-patterns", "security-hardening", "prod-ops"]
+  },
+  "recommendations": {
+    "all": [
+      "Implement SSO/SAML integration",
+      "Prepare SOC 2 documentation",
+      "Set up dedicated infrastructure per environment",
+      "Implement comprehensive audit logging",
+      "Add SLA monitoring with SLO reporting",
+      "Set up disaster recovery plan",
+      "Implement feature flags for controlled rollouts",
+      "Add penetration testing schedule",
+      "Set up compliance scanning pipeline",
+      "Implement data retention and deletion policies"
+    ]
+  }
+}

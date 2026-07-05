@@ -1,42 +1,65 @@
 {
-  "name": "@akakaui/create-code",
+  "name": "@akakaui/shipkit",
   "version": "1.0.0",
-  "description": "AI Development Operating System - scaffolding for web, mobile, and extension projects",
+  "description": "Code Development OS — 14 agents, 7 production-hardening skills, adaptive pipeline. Cross-platform plugin for OpenCode, Claude Code, Cursor, Codex CLI.",
   "type": "module",
   "main": "lib/index.js",
   "bin": {
-    "create-code": "bin/create-code.js"
+    "shipkit": "bin/shipkit.js"
   },
   "files": [
     "bin",
     "lib",
     "templates",
-    "GUIDE.md",
+    "agents",
+    "skills",
+    "profiles",
+    ".claude-plugin",
+    ".cursor-plugin",
+    ".codex-plugin",
+    "opencode-plugin.json",
+    "PIPELINE.md",
+    "PLAN.md",
+    "installer.sh",
     "README.md"
   ],
+  "opencode": {
+    "plugin": "./opencode-plugin.json",
+    "agents": "./agents",
+    "skills": "./skills",
+    "autodetect": false
+  },
   "scripts": {
-    "test": "node --test lib/*.test.js"
+    "test": "node --test lib/*.test.js",
+    "postinstall": "echo \"shipkit installed. Run 'npx shipkit init --global' or see README for platform-specific install.\""
   },
   "keywords": [
     "ai",
     "development",
     "scaffolding",
-    "web",
-    "mobile",
-    "extension",
+    "agent",
     "opencode",
-    "claude-code"
+    "claude-code",
+    "cursor",
+    "codex-cli",
+    "production",
+    "hardening",
+    "pipeline",
+    "plugin",
+    "skill",
+    "agents",
+    "mcp"
   ],
   "author": "Akakaui",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Akakaui/create-code.git"
+    "url": "https://github.com/Akakaui/shipkit.git"
   },
   "bugs": {
-    "url": "https://github.com/Akakaui/create-code/issues"
+    "url": "https://github.com/Akakaui/shipkit/issues"
   },
-  "homepage": "https://github.com/Akakaui/create-code#readme",
+  "homepage": "https://github.com/Akakaui/shipkit#readme",
   "engines": {
     "node": ">=18.0.0"
   },

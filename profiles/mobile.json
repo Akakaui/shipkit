@@ -1,0 +1,21 @@
+{
+  "name": "mobile",
+  "description": "Mobile application (React Native, Flutter, etc.)",
+  "detection": {
+    "keywords": ["react-native", "expo", "flutter", "mobile", "ios", "android", "app"],
+    "patterns": ["ios/*", "android/*", "*.dart", "*.swift"]
+  },
+  "skills": {
+    "all": ["resilience-patterns", "prod-ops"]
+  },
+  "recommendations": {
+    "all": [
+      "Set up crash reporting (Sentry)",
+      "Configure push notifications",
+      "Add offline support with local storage",
+      "Optimize app bundle size",
+      "Set up CI/CD for App Store + Play Store",
+      "Add analytics (Mixpanel/Amplitude)"
+    ]
+  }
+}

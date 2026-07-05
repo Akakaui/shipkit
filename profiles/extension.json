@@ -1,0 +1,22 @@
+{
+  "name": "extension",
+  "description": "Browser extension (Chrome, Firefox, Edge)",
+  "detection": {
+    "keywords": ["chrome", "webextension", "manifest", "extension", "browser-action", "content-script"],
+    "patterns": ["manifest.json", "manifest-v3*", "background.*", "content_scripts/*"]
+  },
+  "skills": {
+    "all": ["prod-ops"]
+  },
+  "recommendations": {
+    "all": [
+      "Follow Manifest V3 best practices",
+      "Minimize permission requests",
+      "Implement proper message passing",
+      "Add error boundary for content scripts",
+      "Set up CI with automated browser tests",
+      "Prepare screenshots for Chrome Web Store listing",
+      "Add usage analytics (privacy-friendly)"
+    ]
+  }
+}

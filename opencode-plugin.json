@@ -1,0 +1,93 @@
+{
+  "name": "@akakaui/shipkit",
+  "version": "0.1.0",
+  "description": "Code Development OS — agents, skills, and pipeline for production-ready code",
+  "agents": {
+    "shipkit-code": {
+      "path": "./agents/code/AGENT.md",
+      "description": "Master orchestrator — routes requests to sub-agents, runs quality gates"
+    },
+    "shipkit-planner": {
+      "path": "./agents/planner/AGENT.md",
+      "description": "Gathers requirements, classifies scope, defines features (Phase 1)"
+    },
+    "shipkit-architect": {
+      "path": "./agents/architect/AGENT.md",
+      "description": "Selects stack, designs architecture, plans data model (Phase 2)"
+    },
+    "shipkit-frontend": {
+      "path": "./agents/frontend/AGENT.md",
+      "description": "Builds UI components, state management, user interfaces"
+    },
+    "shipkit-backend": {
+      "path": "./agents/backend/AGENT.md",
+      "description": "Builds APIs, databases, authentication, server-side logic"
+    },
+    "shipkit-mobile": {
+      "path": "./agents/mobile/AGENT.md",
+      "description": "Builds React Native/Expo mobile apps"
+    },
+    "shipkit-extension": {
+      "path": "./agents/extension/AGENT.md",
+      "description": "Builds Chrome extensions with Manifest V3"
+    },
+    "shipkit-tester": {
+      "path": "./agents/tester/AGENT.md",
+      "description": "Writes unit, integration, E2E, and security tests (Phase 4)"
+    },
+    "shipkit-reviewer": {
+      "path": "./agents/reviewer/AGENT.md",
+      "description": "Reviews code quality, security, handoff readiness"
+    },
+    "shipkit-deployer": {
+      "path": "./agents/deployer/AGENT.md",
+      "description": "CI/CD, infrastructure, deployment, monitoring (Phase 5)"
+    },
+    "shipkit-security": {
+      "path": "./agents/security/AGENT.md",
+      "description": "Security audit, vulnerability scanning, hardening"
+    },
+    "shipkit-auto-detect": {
+      "path": "./agents/auto-detect/AGENT.md",
+      "description": "Classifies project type and loads appropriate skills"
+    },
+    "shipkit-github-tracker": {
+      "path": "./agents/github-tracker/AGENT.md",
+      "description": "Watches PRs, issues, releases, CI status"
+    },
+    "shipkit-ops-monitor": {
+      "path": "./agents/ops-monitor/AGENT.md",
+      "description": "Watches logs, metrics, uptime, alerts, cost"
+    }
+  },
+  "skills": {
+    "production-hardening": {
+      "path": "./skills/production-hardening/SKILL.md",
+      "description": "Master production-readiness checklist"
+    },
+    "infra-networking": {
+      "path": "./skills/infra-networking/SKILL.md",
+      "description": "CDN, DNS, WAF, load balancers, SSL, DDoS protection"
+    },
+    "container-orch": {
+      "path": "./skills/container-orch/SKILL.md",
+      "description": "Docker, Compose, Kubernetes, Helm, CI/CD"
+    },
+    "db-scale": {
+      "path": "./skills/db-scale/SKILL.md",
+      "description": "Connection pooling, read replicas, sharding, migrations"
+    },
+    "resilience-patterns": {
+      "path": "./skills/resilience-patterns/SKILL.md",
+      "description": "Rate limiting, circuit breakers, retries, graceful degradation"
+    },
+    "security-hardening": {
+      "path": "./skills/security-hardening/SKILL.md",
+      "description": "OWASP Top 10, auth, encryption, SBOM, compliance"
+    },
+    "prod-ops": {
+      "path": "./skills/prod-ops/SKILL.md",
+      "description": "Monitoring, alerting, SLOs, incident response"
+    }
+  }
+}

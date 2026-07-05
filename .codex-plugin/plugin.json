@@ -1,0 +1,54 @@
+{
+  "name": "shipkit",
+  "version": "0.1.0",
+  "description": "Code Development OS — 14 agents, 7 production-hardening skills, adaptive pipeline for production-ready code",
+  "repository": "github.com/Akakaui/shipkit",
+  "homepage": "https://github.com/Akakaui/shipkit",
+  "author": "Akakaui",
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "production-hardening",
+      "description": "Master orchestrator — runs the production-readiness checklist and coordinates all sub-skills",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/production-hardening/SKILL.md"
+    },
+    {
+      "name": "infra-networking",
+      "description": "CDN, DNS, WAF, load balancers, SSL, DDoS protection, multi-region deployment",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/infra-networking/SKILL.md"
+    },
+    {
+      "name": "container-orch",
+      "description": "Docker, Compose, Kubernetes, Helm, service discovery, CI/CD for containers",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/container-orch/SKILL.md"
+    },
+    {
+      "name": "db-scale",
+      "description": "Connection pooling, read replicas, sharding, migration strategies, query optimization",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/db-scale/SKILL.md"
+    },
+    {
+      "name": "resilience-patterns",
+      "description": "Rate limiting, circuit breakers, retries with backoff, graceful degradation, bulkheads",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/resilience-patterns/SKILL.md"
+    },
+    {
+      "name": "security-hardening",
+      "description": "OWASP Top 10, auth hardening, encryption, SBOM, compliance, audit logging",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/security-hardening/SKILL.md"
+    },
+    {
+      "name": "prod-ops",
+      "description": "Monitoring, alerting, SLOs/SLIs, incident response, backup/restore, cost optimization",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/prod-ops/SKILL.md"
+    }
+  ],
+  "scaffold": {
+    "templates": "templates/",
+    "entry": "templates/project.json"
+  },
+  "install": {
+    "method": "npm",
+    "package": "@akakaui/shipkit"
+  }
+}

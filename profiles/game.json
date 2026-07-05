@@ -1,0 +1,22 @@
+{
+  "name": "game",
+  "description": "Web game or interactive experience",
+  "detection": {
+    "keywords": ["game", "phaser", "three.js", "pixi", "unity", "play", "canvas"],
+    "patterns": ["*/scenes/*", "*/sprites/*", "*.glb", "*.gltf"]
+  },
+  "skills": {
+    "all": ["prod-ops"]
+  },
+  "recommendations": {
+    "all": [
+      "Optimize asset loading (lazy load, compress textures)",
+      "Add loading screen / progress indicator",
+      "Implement save/load game state",
+      "Add keyboard + touch support",
+      "Target 60fps on low-end devices",
+      "Set up analytics for player behavior",
+      "Add leaderboard / multiplayer options if applicable"
+    ]
+  }
+}

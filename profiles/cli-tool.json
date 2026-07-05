@@ -1,0 +1,21 @@
+{
+  "name": "cli-tool",
+  "description": "Command-line interface tool, script, or automation utility",
+  "detection": {
+    "keywords": ["cli", "command", "bin", "commander", "yargs", "argparse", "click", "typer"],
+    "patterns": ["bin/*", "src/cli*"]
+  },
+  "skills": {
+    "all": ["resilience-patterns", "prod-ops"]
+  },
+  "recommendations": {
+    "all": [
+      "Add proper error handling with user-friendly messages",
+      "Implement progress indicators for long operations",
+      "Add --help and --version flags",
+      "Set up CI for cross-platform testing",
+      "Publish to npm/PyPI/Homebrew",
+      "Add telemetry (opt-in only)"
+    ]
+  }
+}

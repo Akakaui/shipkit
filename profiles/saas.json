@@ -1,0 +1,36 @@
+{
+  "name": "saas",
+  "description": "Software-as-a-Service product with auth, billing, multi-tenancy",
+  "detection": {
+    "keywords": ["stripe", "auth", "multi-tenant", "subscription", "tenant", "organization", "team", "plan", "pricing"],
+    "patterns": ["*/api/auth/*", "*/payments/*", "*/billing/*"]
+  },
+  "skills": {
+    "all": ["production-hardening", "infra-networking", "container-orch", "db-scale", "resilience-patterns", "security-hardening", "prod-ops"]
+  },
+  "recommendations": {
+    "low": [
+      "Add Sentry for error tracking",
+      "Set up CI/CD with GitHub Actions",
+      "Configure Cloudflare for CDN"
+    ],
+    "medium": [
+      "Add read replicas for database",
+      "Set up PgBouncer for connection pooling",
+      "Implement rate limiting on API endpoints",
+      "Configure monitoring dashboards"
+    ],
+    "high": [
+      "Implement circuit breakers for downstream services",
+      "Set up multi-region deployment",
+      "Add comprehensive audit logging",
+      "Implement feature flags for gradual rollouts"
+    ],
+    "enterprise": [
+      "SSO/SAML integration",
+      "SOC 2 compliance preparation",
+      "Dedicated infrastructure per tenant",
+      "SLA monitoring and reporting"
+    ]
+  }
+}

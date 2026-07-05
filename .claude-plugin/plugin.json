@@ -1,0 +1,72 @@
+{
+  "name": "shipkit",
+  "version": "0.1.0",
+  "description": "Code Development OS — 14 agents, 7 production-hardening skills, adaptive pipeline. Works as a universal plugin across agentic AI tools.",
+  "repository": "github.com/Akakaui/shipkit",
+  "homepage": "https://github.com/Akakaui/shipkit",
+  "author": "Akakaui",
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "production-hardening",
+      "description": "Master orchestrator — runs the production-readiness checklist and coordinates all sub-skills",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/production-hardening/SKILL.md"
+    },
+    {
+      "name": "infra-networking",
+      "description": "CDN, DNS, WAF, load balancers, SSL, DDoS protection, multi-region deployment",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/infra-networking/SKILL.md"
+    },
+    {
+      "name": "container-orch",
+      "description": "Docker, Compose, Kubernetes, Helm, service discovery, CI/CD for containers",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/container-orch/SKILL.md"
+    },
+    {
+      "name": "db-scale",
+      "description": "Connection pooling, read replicas, sharding, migration strategies, query optimization",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/db-scale/SKILL.md"
+    },
+    {
+      "name": "resilience-patterns",
+      "description": "Rate limiting, circuit breakers, retries with backoff, graceful degradation, bulkheads",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/resilience-patterns/SKILL.md"
+    },
+    {
+      "name": "security-hardening",
+      "description": "OWASP Top 10, auth hardening, encryption, SBOM, compliance, audit logging",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/security-hardening/SKILL.md"
+    },
+    {
+      "name": "prod-ops",
+      "description": "Monitoring, alerting, SLOs/SLIs, incident response, backup/restore, cost optimization",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/skills/prod-ops/SKILL.md"
+    }
+  ],
+  "agents": [
+    {
+      "name": "auto-detect",
+      "description": "Classifies project type (SaaS, API, CLI, etc.) and loads the right skills",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/agents/auto-detect/AGENT.md"
+    },
+    {
+      "name": "planner",
+      "description": "Gathers requirements, classifies scope, defines features (Phase 1)",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/agents/planner/AGENT.md"
+    },
+    {
+      "name": "architect",
+      "description": "Selects stack, designs architecture, plans data model (Phase 2)",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/agents/architect/AGENT.md"
+    },
+    {
+      "name": "code",
+      "description": "Master orchestrator — routes to sub-agents, runs quality gates, manages pipeline",
+      "url": "https://raw.githubusercontent.com/Akakaui/create-code/main/agents/code/AGENT.md"
+    }
+  ],
+  "install": {
+    "method": "plugin",
+    "command": "/plugin install github.com/Akakaui/shipkit"
+  }
+}
