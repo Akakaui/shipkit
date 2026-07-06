@@ -9,10 +9,11 @@
 ## Manual Setup
 
 ```bash
-# Copy skills as read-only rules
-cp -r ~/.cache/shipkit/skills/*/SKILL.md ~/.aider/rules/
+# Clone shipkit then copy skills as read-only rules
+git clone https://github.com/Akakaui/shipkit.git
+mkdir -p ~/.aider/rules
+cp shipkit/skills/*/SKILL.md ~/.aider/rules/
 
-# Or use shipkit's aider profile
-aider --read ~/.aider/rules/production-hardening.skill.md \
-      --read ~/.aider/rules/security.skill.md
+# Or just use shipkit CLI
+npx @akakaui/shipkit init
 ```

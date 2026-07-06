@@ -127,9 +127,12 @@ Cursor supports plugins via `~/.cursor/`.
 # Global install (auto-detect)
 npx @akakaui/shipkit init
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.cursor/plugins/shipkit
-cp -r ~/.cache/shipkit/* ~/.cursor/plugins/shipkit/
+cp -r shipkit/skills/* ~/.cursor/plugins/shipkit/
+cp -r shipkit/agents/* ~/.cursor/plugins/shipkit/
+cp shipkit/.cursor-plugin/plugin.json ~/.cursor/plugins/shipkit/
 ```
 
 **What gets installed:**
@@ -156,9 +159,12 @@ Codex CLI loads plugins from `~/.codex/plugins/`.
 # Global install (auto-detect)
 npx @akakaui/shipkit init
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.codex/plugins/shipkit
-cp -r ~/.cache/shipkit/* ~/.codex/plugins/shipkit/
+cp -r shipkit/skills/* ~/.codex/plugins/shipkit/
+cp -r shipkit/agents/* ~/.codex/plugins/shipkit/
+cp shipkit/.codex-plugin/plugin.json ~/.codex/plugins/shipkit/
 ```
 
 **What gets installed:**
@@ -182,10 +188,12 @@ Cline loads plugins from `~/.cline/plugins/`. shipkit installs **hooks** that fi
 # Global install (auto-detect)
 npx @akakaui/shipkit init
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.cline/plugins/shipkit/{skills,agents,hooks}
-cp -r ~/.cache/shipkit/skills/* ~/.cline/plugins/shipkit/skills/
-cp -r ~/.cache/shipkit/agents/* ~/.cline/plugins/shipkit/agents/
+cp -r shipkit/skills/* ~/.cline/plugins/shipkit/skills/
+cp -r shipkit/agents/* ~/.cline/plugins/shipkit/agents/
+cp shipkit/.cline-plugin/* ~/.cline/plugins/shipkit/
 ```
 
 **What gets installed:**
@@ -225,10 +233,12 @@ Antigravity loads plugins from `~/.gemini/antigravity-cli/plugins/`. Like Cline,
 # Global install (auto-detect)
 npx @akakaui/shipkit init
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.gemini/antigravity-cli/plugins/shipkit/{skills,agents,hooks}
-cp -r ~/.cache/shipkit/skills/* ~/.gemini/antigravity-cli/plugins/shipkit/skills/
-cp -r ~/.cache/shipkit/agents/* ~/.gemini/antigravity-cli/plugins/shipkit/agents/
+cp -r shipkit/skills/* ~/.gemini/antigravity-cli/plugins/shipkit/skills/
+cp -r shipkit/agents/* ~/.gemini/antigravity-cli/plugins/shipkit/agents/
+cp shipkit/.antigravity-plugin/* ~/.gemini/antigravity-cli/plugins/shipkit/
 ```
 
 **What gets installed:**
@@ -276,9 +286,10 @@ npx @akakaui/shipkit init
 # ~/.aider/.aider.conf.yml  (loads skills as --read files)
 # ~/.aider/rules/*.skill.md (each skill as a rule file)
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.aider/rules
-cp -r ~/.cache/shipkit/skills/*/SKILL.md ~/.aider/rules/
+cp shipkit/skills/*/SKILL.md ~/.aider/rules/
 ```
 
 **What gets installed:**
@@ -326,9 +337,10 @@ npx @akakaui/shipkit init
 # The installer generates:
 # ~/.windsurf/rules/*.windsurf-rule.md (one per skill)
 
-# Manual install
+# Manual install (clone repo first)
+git clone https://github.com/Akakaui/shipkit.git
 mkdir -p ~/.windsurf/rules
-cp -r ~/.cache/shipkit/skills/*/SKILL.md ~/.windsurf/rules/
+cp shipkit/skills/*/SKILL.md ~/.windsurf/rules/
 ```
 
 **What gets installed:**

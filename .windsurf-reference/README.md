@@ -26,9 +26,11 @@ trigger: always_on
 ## Installation
 
 ```bash
-# Copy skills as Windsurf rules
-cp -r ~/.cache/shipkit/skills/*/SKILL.md ~/.windsurf/rules/*.windsurf-rule.md
+# Clone shipkit then copy skills as Windsurf rules
+git clone https://github.com/Akakaui/shipkit.git
+mkdir -p ~/.windsurf/rules
+cp shipkit/skills/*/SKILL.md ~/.windsurf/rules/
 
-# Or use shipkit CLI
+# Or just use shipkit CLI (one command, does everything)
 npx @akakaui/shipkit init
 ```
