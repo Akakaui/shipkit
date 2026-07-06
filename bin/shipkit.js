@@ -4,7 +4,7 @@
  *
  * Production-ready code from AI tools.
  * 14 agents, ~34 skills, 6-phase gated pipeline.
- * Cross-platform: OpenCode, Claude Code, Cursor, Codex CLI, Aider, Windsurf, Cline, Gemini CLI, Antigravity
+ * Cross-platform: OpenCode, Claude Code, Cursor, Codex CLI, Cline, Antigravity, Aider, Windsurf
  *
  * @license MIT
  * @author Akakaui
@@ -56,7 +56,7 @@ program
 
     if (agents.length === 0) {
       console.log(chalk.yellow('No supported AI coding agents detected.'));
-      console.log(chalk.gray('Install one of: OpenCode, Claude Code, Cursor, Codex CLI, Aider, Windsurf, Cline, Gemini CLI, Antigravity'));
+      console.log(chalk.gray('Install one of: OpenCode, Claude Code, Cursor, Codex CLI, Cline, Antigravity, Aider, Windsurf'));
       console.log(chalk.gray('\nYou can also run:'));
       console.log(chalk.gray('  npx shipkit init --local    # Install in current project'));
       return;

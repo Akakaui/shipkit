@@ -1,0 +1,16 @@
+{
+  "name": "shipkit",
+  "version": "1.0.0",
+  "description": "Code Development OS — 14 agents, 7 skills, 6-phase pipeline",
+  "author": "Akakaui",
+  "license": "MIT",
+  "skills": {
+    "dir": "./skills"
+  },
+  "agents": {
+    "dir": "./agents"
+  },
+  "hooks": {
+    "dir": "./hooks"
+  }
+}

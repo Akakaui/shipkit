@@ -16,8 +16,8 @@ describe('install.js — Cross-Platform Installer', () => {
   beforeEach(async () => {
     tmpDir = mkdtempSync(join(tmpdir(), 'shipkit-install-'));
     mockAgent = {
-      id: 'test-agent',
-      name: 'Test Agent',
+      id: 'opencode',
+      name: 'OpenCode',
       pluginDir: join(tmpDir, 'plugin'),
       skillDir: join(tmpDir, 'plugin', 'skills'),
       agentDir: join(tmpDir, 'plugin', 'agents'),
@@ -32,7 +32,7 @@ describe('install.js — Cross-Platform Installer', () => {
       expect(result).toHaveProperty('agent');
       expect(result).toHaveProperty('agents');
       expect(result).toHaveProperty('skills');
-      expect(result.agent).toBe('Test Agent');
+      expect(result.agent).toBe('OpenCode');
       expect(result.agents).toBeGreaterThan(0);
       expect(result.skills).toBeGreaterThan(0);
     });

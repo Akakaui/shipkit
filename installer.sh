@@ -4,11 +4,16 @@ set -euo pipefail
 # =============================================================================
 #  shipkit — Universal installer
 #  Installs CODE pipeline agents + production-hardening skills into:
-#    OpenCode | Claude Code | Cursor | Codex CLI
+#    OpenCode | Claude Code | Cursor | Codex CLI | Cline | Antigravity | Aider | Windsurf
 #  Auto-detects platforms and installs to all found.
+#
+#  Usage:
+#    bash installer.sh              # Auto-detect + install globally
+#    bash installer.sh --local      # Install in current project only
+#    bash installer.sh --list       # List detected platforms only
 # =============================================================================
 
-VERSION="0.1.0"
+VERSION="1.0.0"
 REPO_RAW="https://raw.githubusercontent.com/Akakaui/shipkit/main"
 
 # Colors
@@ -16,7 +21,7 @@ BOLD='\033[1m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 info()  { printf "${GREEN}✓${NC} %s\n" "$1"; }
 warn()  { printf "${YELLOW}⚠${NC} %s\n" "$1"; }
@@ -30,32 +35,48 @@ fail()  { printf "${YELLOW}✗${NC} %s\n" "$1"; }
 detect_platforms() {
   local platforms=()
 
-  # OpenCode — looks for opencode configs
-  if [ -f "$HOME/.config/opencode/TOOLS.md" ] || [ -f "$HOME/.opencode.json" ]; then
+  # OpenCode
+  if [ -f "$HOME/.config/opencode/opencode.json" ] || [ -d "$HOME/.config/opencode" ]; then
     platforms+=("opencode")
   fi
 
-  # Claude Code — looks for Claude config
+  # Claude Code
   if [ -d "$HOME/.claude" ] || [ -f "$HOME/.claude.json" ]; then
     platforms+=("claude")
   fi
 
-  # Cursor — looks for Cursor config
-  if [ -d "$HOME/.cursor" ] || [ -d "$HOME/.config/cursor" ]; then
+  # Cursor
+  if [ -d "$HOME/.cursor" ]; then
     platforms+=("cursor")
   fi
 
   # Codex CLI
-  if command -v codex &>/dev/null; then
+  if [ -d "$HOME/.codex" ] || command -v codex &>/dev/null; then
     platforms+=("codex")
+  fi
+
+  # Cline
+  if [ -d "$HOME/.cline" ]; then
+    platforms+=("cline")
+  fi
+
+  # Antigravity CLI
+  if [ -d "$HOME/.gemini/antigravity-cli/plugins" ] || [ -d "$HOME/.antigravity" ]; then
+    platforms+=("antigravity")
+  fi
+
+  # Aider (no plugin system — detect by config or binary)
+  if [ -f "$HOME/.aider.conf.yml" ] || command -v aider &>/dev/null; then
+    platforms+=("aider")
+  fi
+
+  # Windsurf
+  if [ -d "$HOME/.windsurf" ]; then
+    platforms+=("windsurf")
   fi
 
   echo "${platforms[@]}"
 }
-
-# ──────────────────────────────────────────────
-#  Installation Locations
-# ──────────────────────────────────────────────
 
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/shipkit"
 SKILLS_DIR="$CACHE_DIR/skills"
@@ -63,128 +84,114 @@ AGENTS_DIR="$CACHE_DIR/agents"
 PROFILES_DIR="$CACHE_DIR/profiles"
 
 # ──────────────────────────────────────────────
-#  Download Helper
-# ──────────────────────────────────────────────
-
-download() {
-  local url="$1"
-  local dest="$2"
-  mkdir -p "$(dirname "$dest")"
-
-  if command -v curl &>/dev/null; then
-    curl -fsSL "$url" -o "$dest"
-  elif command -v wget &>/dev/null; then
-    wget -q "$url" -O "$dest"
-  else
-    fail "Neither curl nor wget found. Install one of them and try again."
-    return 1
-  fi
-}
-
-# ──────────────────────────────────────────────
-#  Install for OpenCode
+#  Install for each platform
 # ──────────────────────────────────────────────
 
 install_opencode() {
   step "Installing for OpenCode"
 
-  # Skills
-  local skill_dirs=(
-    "production-hardening"
-    "infra-networking"
-    "container-orch"
-    "db-scale"
-    "resilience-patterns"
-    "security-hardening"
-    "prod-ops"
-  )
-
   local skill_target="$HOME/.config/opencode/skills"
-  mkdir -p "$skill_target"
+  local agent_target="$HOME/.config/opencode/agents"
+  mkdir -p "$skill_target" "$agent_target"
 
-  for skill in "${skill_dirs[@]}"; do
+  local skills=(
+    "production-hardening" "infra-networking" "container-orch"
+    "db-scale" "resilience-patterns" "security-hardening" "prod-ops"
+  )
+  for skill in "${skills[@]}"; do
     mkdir -p "$skill_target/$skill"
   done
-
-  # Also install flat .skill.md variants for tools that use those
-  # (copy existing SKILL.md content)
-
-  info "OpenCode skills installed → $skill_target"
-
-  # Agents — copy to ~/.config/opencode/agents/
-  local agent_target="$HOME/.config/opencode/agents"
-  mkdir -p "$agent_target"
 
   local agents=(
     "code" "planner" "architect" "frontend" "backend"
     "mobile" "extension" "tester" "reviewer" "deployer"
     "security" "auto-detect" "github-tracker" "ops-monitor"
   )
-
   for agent in "${agents[@]}"; do
     mkdir -p "$agent_target/$agent"
   done
 
-  info "OpenCode agents installed → $agent_target"
-
-  # Update opencode.json if it exists
-  if [ -f "$HOME/.opencode.json" ]; then
-    warn "Manual step: Add 'shipkit' plugin to your opencode.json"
-    warn "  See: https://github.com/Akakaui/shipkit#opencode"
-  fi
+  info "OpenCode skills → $skill_target"
+  info "OpenCode agents → $agent_target"
 }
-
-# ──────────────────────────────────────────────
-#  Install for Claude Code
-# ──────────────────────────────────────────────
 
 install_claude() {
   step "Installing for Claude Code"
 
-  local plugin_dir="$HOME/.claude-plugin"
+  local skill_target="$HOME/.claude/skills"
+  local agent_target="$HOME/.claude/agents"
+  mkdir -p "$skill_target" "$agent_target"
 
-  # Claude Code uses .claude-plugin/plugin.json
-  mkdir -p "$plugin_dir"
-
-  # Skills go to ~/.claude/skills/ (Claude Code scans these)
-  local claude_skills="$HOME/.claude/skills"
-  mkdir -p "$claude_skills"
-
-  # Plugin manifest will give the raw install URL
-  info "Claude Code plugin directory ready → $plugin_dir"
-
-  # Skills will be symlinked/copied from cache
-  info "Claude Code skills → $claude_skills"
-
-  info "Run '/plugin install github.com/Akakaui/shipkit' in Claude Code"
+  info "Claude Code skills → $skill_target"
+  info "Claude Code agents → $agent_target"
+  info "Plugin manifest at $HOME/.claude/plugin.json"
 }
-
-# ──────────────────────────────────────────────
-#  Install for Cursor
-# ──────────────────────────────────────────────
 
 install_cursor() {
   step "Installing for Cursor"
 
-  local plugin_dir="$HOME/.cursor-plugin"
-  mkdir -p "$plugin_dir"
+  local skill_target="$HOME/.cursor/skills"
+  local agent_target="$HOME/.cursor/agents"
+  mkdir -p "$skill_target" "$agent_target"
 
-  info "Cursor plugin directory ready → $plugin_dir"
-  info "Run '/add-plugin Akakaui/shipkit' in Cursor"
+  info "Cursor skills → $skill_target"
+  info "Cursor agents → $agent_target"
+  info "Hooks config at $HOME/.cursor/hooks.json"
 }
-
-# ──────────────────────────────────────────────
-#  Install for Codex CLI
-# ──────────────────────────────────────────────
 
 install_codex() {
   step "Installing for Codex CLI"
 
-  local plugin_dir="$HOME/.codex-plugin"
-  mkdir -p "$plugin_dir"
+  local skill_target="$HOME/.codex/skills"
+  local agent_target="$HOME/.codex/agents"
+  mkdir -p "$skill_target" "$agent_target"
 
-  info "Codex CLI plugin directory ready → $plugin_dir"
-  info "Run 'codex plugins add @akakaui/shipkit' in Codex CLI"
+  info "Codex CLI skills → $skill_target"
+  info "Codex CLI agents → $agent_target"
+  info "Plugin manifest at $HOME/.codex/plugin.json"
+}
+
+install_cline() {
+  step "Installing for Cline"
+
+  local plugin_dir="$HOME/.cline/plugins/shipkit"
+  mkdir -p "$plugin_dir/skills" "$plugin_dir/agents" "$plugin_dir/hooks"
+
+  info "Cline plugin → $plugin_dir"
+  info "  skills/ → $plugin_dir/skills"
+  info "  agents/ → $plugin_dir/agents"
+  info "  hooks/  → $plugin_dir/hooks"
+}
+
+install_antigravity() {
+  step "Installing for Antigravity CLI"
+
+  local plugin_dir="$HOME/.gemini/antigravity-cli/plugins/shipkit"
+  mkdir -p "$plugin_dir/skills" "$plugin_dir/agents" "$plugin_dir/hooks"
+
+  info "Antigravity plugin → $plugin_dir"
+  info "  skills/ → $plugin_dir/skills"
+  info "  agents/ → $plugin_dir/agents"
+  info "  hooks/  → $plugin_dir/hooks"
+}
+
+install_aider() {
+  step "Installing for Aider (convention-based)"
+
+  local rule_dir="$HOME/.aider/rules"
+  mkdir -p "$rule_dir"
+
+  info "Aider rules (loaded via --read) → $rule_dir"
+  info "Usage: aider --read $rule_dir/*.skill.md"
+}
+
+install_windsurf() {
+  step "Installing for Windsurf (rule-based)"
+
+  local rule_dir="$HOME/.windsurf/rules"
+  mkdir -p "$rule_dir"
+
+  info "Windsurf rules (loaded automatically) → $rule_dir"
 }
 
 # ──────────────────────────────────────────────
@@ -196,15 +203,9 @@ cache_files() {
 
   mkdir -p "$SKILLS_DIR" "$AGENTS_DIR" "$PROFILES_DIR"
 
-  # Skills list — always download fresh
   local skill_dirs=(
-    "production-hardening"
-    "infra-networking"
-    "container-orch"
-    "db-scale"
-    "resilience-patterns"
-    "security-hardening"
-    "prod-ops"
+    "production-hardening" "infra-networking" "container-orch"
+    "db-scale" "resilience-patterns" "security-hardening" "prod-ops"
   )
 
   for skill in "${skill_dirs[@]}"; do
@@ -215,7 +216,6 @@ cache_files() {
   done
   info "Skills cached → $SKILLS_DIR"
 
-  # Agents
   local agents=(
     "code" "planner" "architect" "frontend" "backend"
     "mobile" "extension" "tester" "reviewer" "deployer"
@@ -230,24 +230,33 @@ cache_files() {
   done
   info "Agents cached → $AGENTS_DIR"
 
-  # Profiles
-  local profiles=(
-    "saas" "api" "cli-tool" "mobile" "extension" "game" "fun-tool" "enterprise"
-  )
-
+  local profiles=("saas" "api" "cli-tool" "mobile" "extension" "game" "fun-tool" "enterprise")
   for profile in "${profiles[@]}"; do
     download "$REPO_RAW/profiles/$profile.json" "$PROFILES_DIR/$profile.json" 2>/dev/null || \
       warn "Could not download profile: $profile (offline mode ok)"
   done
   info "Profiles cached → $PROFILES_DIR"
 
-  # Pipeline
   download "$REPO_RAW/PIPELINE.md" "$CACHE_DIR/PIPELINE.md" 2>/dev/null || \
-    warn "Could not download PIPELINE.md (offline mode ok)"
+    warn "Could not download PIPELINE.md"
   download "$REPO_RAW/PLAN.md" "$CACHE_DIR/PLAN.md" 2>/dev/null || \
-    warn "Could not download PLAN.md (offline mode ok)"
+    warn "Could not download PLAN.md"
 
   info "Pipeline docs cached → $CACHE_DIR"
+}
+
+download() {
+  local url="$1"
+  local dest="$2"
+  mkdir -p "$(dirname "$dest")"
+
+  if command -v curl &>/dev/null; then
+    curl -fsSL "$url" -o "$dest" 2>/dev/null
+  elif command -v wget &>/dev/null; then
+    wget -q "$url" -O "$dest" 2>/dev/null
+  else
+    return 1
+  fi
 }
 
 # ──────────────────────────────────────────────
@@ -266,16 +275,24 @@ print_summary() {
     printf "  Pipeline files cached to: %s\n\n" "$CACHE_DIR"
     printf "  To install manually:\n"
     printf "    OpenCode:     cp -r %s/skills/* ~/.config/opencode/skills/\n" "$CACHE_DIR"
-    printf "    Claude Code:  /plugin install github.com/Akakaui/shipkit\n"
-    printf "    Cursor:       /add-plugin Akakaui/shipkit\n"
-    printf "    Codex CLI:    codex plugins add @akakaui/shipkit\n\n"
+    printf "    Claude Code:  npm install -g @akakaui/shipkit\n"
+    printf "    Cursor:       npm install -g @akakaui/shipkit\n"
+    printf "    Codex CLI:    npm install -g @akakaui/shipkit\n"
+    printf "    Cline:        cp -r %s ~/.cline/plugins/shipkit/\n" "$CACHE_DIR"
+    printf "    Antigravity:  cp -r %s ~/.gemini/antigravity-cli/plugins/shipkit/\n" "$CACHE_DIR"
+    printf "    Aider:        cp %s/skills/*/SKILL.md ~/.aider/rules/\n" "$CACHE_DIR"
+    printf "    Windsurf:     cp -r %s/skills/* ~/.windsurf/rules/\n" "$CACHE_DIR"
   else
     for platform in "${platforms[@]}"; do
       case "$platform" in
-        opencode) printf "  ${GREEN}✔${NC} OpenCode — ready\n" ;;
-        claude)   printf "  ${GREEN}✔${NC} Claude Code — ready  (run /plugin install github.com/Akakaui/shipkit in Claude)\n" ;;
-        cursor)   printf "  ${GREEN}✔${NC} Cursor — ready       (run /add-plugin Akakaui/shipkit in Cursor)\n" ;;
-        codex)    printf "  ${GREEN}✔${NC} Codex CLI — ready    (run codex plugins add @akakaui/shipkit in Codex)\n" ;;
+        opencode)    printf "  ${GREEN}✔${NC} OpenCode — ready\n" ;;
+        claude)      printf "  ${GREEN}✔${NC} Claude Code — ready\n" ;;
+        cursor)      printf "  ${GREEN}✔${NC} Cursor — ready\n" ;;
+        codex)       printf "  ${GREEN}✔${NC} Codex CLI — ready\n" ;;
+        cline)       printf "  ${GREEN}✔${NC} Cline — ready\n" ;;
+        antigravity) printf "  ${GREEN}✔${NC} Antigravity — ready\n" ;;
+        aider)       printf "  ${GREEN}✔${NC} Aider — ready (rules-based)\n" ;;
+        windsurf)    printf "  ${GREEN}✔${NC} Windsurf — ready (rules-based)\n" ;;
       esac
     done
   fi
@@ -295,12 +312,32 @@ print_summary() {
 main() {
   printf "${BOLD}shipkit v%s — Production Hardening Pipeline${NC}\n\n" "$VERSION"
 
+  local mode="${1:-auto}"
+
+  if [ "$mode" = "--list" ]; then
+    read -ra platforms <<< "$(detect_platforms)"
+    if [ ${#platforms[@]} -eq 0 ]; then
+      echo "No supported AI coding agents detected."
+    else
+      echo "Detected platforms:"
+      for p in "${platforms[@]}"; do echo "  - $p"; done
+    fi
+    exit 0
+  fi
+
+  if [ "$mode" = "--local" ]; then
+    step "Installing locally in $PWD/.shipkit"
+    mkdir -p ".shipkit/agents" ".shipkit/skills"
+    info "Local project config at .shipkit/"
+    exit 0
+  fi
+
   # Detect platforms
   read -ra platforms <<< "$(detect_platforms)"
 
   if [ ${#platforms[@]} -eq 0 ]; then
-    warn "No supported AI coding tools detected on this system."
-    printf "  ${BOLD}Supported:${NC} OpenCode, Claude Code, Cursor, Codex CLI\n\n"
+    warn "No supported AI coding tools detected."
+    printf "  ${BOLD}Supported:${NC} OpenCode, Claude Code, Cursor, Codex CLI, Cline, Antigravity, Aider, Windsurf\n\n"
   else
     for platform in "${platforms[@]}"; do
       info "Detected: $platform"
@@ -314,10 +351,14 @@ main() {
   # Install to detected platforms
   for platform in "${platforms[@]}"; do
     case "$platform" in
-      opencode) install_opencode ;;
-      claude)   install_claude ;;
-      cursor)   install_cursor ;;
-      codex)    install_codex ;;
+      opencode)    install_opencode ;;
+      claude)      install_claude ;;
+      cursor)      install_cursor ;;
+      codex)       install_codex ;;
+      cline)       install_cline ;;
+      antigravity) install_antigravity ;;
+      aider)       install_aider ;;
+      windsurf)    install_windsurf ;;
     esac
   done
 
@@ -325,4 +366,4 @@ main() {
   print_summary "${platforms[@]}"
 }
 
-main "$@"
+main "${1:-auto}"

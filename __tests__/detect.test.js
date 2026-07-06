@@ -7,7 +7,7 @@ import { detectAgents, detectCurrentAgent, AGENTS } from '../lib/detect.js';
 
 describe('detect.js — Agent Detection', () => {
   describe('AGENTS', () => {
-    it('has 9 agent definitions', () => {
+    it('has 8 agent definitions', () => {
       const ids = Object.keys(AGENTS);
       expect(ids).toContain('opencode');
       expect(ids).toContain('claude-code');
@@ -16,9 +16,8 @@ describe('detect.js — Agent Detection', () => {
       expect(ids).toContain('aider');
       expect(ids).toContain('windsurf');
       expect(ids).toContain('cline');
-      expect(ids).toContain('gemini-cli');
       expect(ids).toContain('antigravity');
-      expect(ids.length).toBe(9);
+      expect(ids.length).toBe(8);
     });
 
     it('each agent has name, detect, pluginDir, installMethod, skillDir, agentDir', () => {
@@ -37,7 +36,10 @@ describe('detect.js — Agent Detection', () => {
       expect(AGENTS.opencode.name).toBe('OpenCode');
       expect(AGENTS['claude-code'].name).toBe('Claude Code');
       expect(AGENTS['codex-cli'].name).toBe('Codex CLI');
-      expect(AGENTS['gemini-cli'].name).toBe('Gemini CLI');
+      expect(AGENTS.aider.name).toBe('Aider');
+      expect(AGENTS.windsurf.name).toBe('Windsurf');
+      expect(AGENTS.cline.name).toBe('Cline');
+      expect(AGENTS.antigravity.name).toBe('Antigravity');
     });
   });
 
